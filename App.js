@@ -1,21 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { View } from 'react-native'
+import AddEntry from './components/AddEntry'
+import History from './components/History'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers/'
+import applyMiddleware from './middlewares/'
+import { ADD_ENTRY } from './actions'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Provider store={createStore(reducer, applyMiddleware)}>
+        <View style={{ flex: 1 }}>
+          <View style={{ height: 20 }} />
+          <History />
+        </View>
+      </Provider>
+    )
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
